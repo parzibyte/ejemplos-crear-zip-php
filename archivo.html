@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="twitter:image" content="https://parzibyte.me/blog/wp-content/uploads/2018/11/Logotipo-conversor-de-bases-num%C3%A9ricas.png" />
+    <meta name="twitter:description" content="Conversor de números online. Convertir bases numéricas: binario, octal, decimal y hexadecimal" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="description" content="Conversor de números online. Convertir bases numéricas: binario, octal, decimal y hexadecimal">
+    <meta property="og:image" content="https://parzibyte.me/blog/wp-content/uploads/2018/11/Logotipo-conversor-de-bases-num%C3%A9ricas.png" />
+    <meta property="og:locale" content="es_LA" />
+    <meta property="og:url" content="https://parzibyte.me/apps/conversor_bases" />
+    <meta property="og:site_name" content="Parzibyte.me" />
+    <meta property="og:title" content="Conversor de bases numéricas en JavaScript" />
+    <meta property="og:description" content='Conversor de números online. Convertir bases numéricas: binario, octal, decimal y hexadecimal' />
+    <title>Conversor binario, decimal, octal y hexadecimal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <script src="https://vuejs.org/js/vue.min.js"></script>
+</head>
+
+<body>
+    <div class="section">
+        <div id="app" class="container is-fluid">
+            <div class="columns">
+                <div class="column">
+                    <h1 class="is-size-2">Convertidor de bases numéricas</h1>
+                    <div v-show="!mostrarNotificacion" class="notification is-warning">
+                        Este <strong>conversor de bases numéricas</strong> puede convertir entre decimal, binario,
+                        octal y
+                        hexadecimal a cualquier otra base
+                        Escribe el número, selecciona la <strong>base</strong> y la conversión
+                        se hará automáticamente
+                    </div>
+
+                    <div v-show="mostrarNotificacion" class="notification is-info">
+                        Copiado al portapapeles <i class="fa fa-check"></i>
+                    </div>
+                    <div class="field">
+                        <div class="control">
+                            <input v-model="numero" autofocus class="input" type="text" placeholder="El número que deseas convertir">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="control">
+                            <p>Convertir desde...</p>
+                            <label class="radio">
+                                <input v-model="baseSeleccionada" value="2" type="radio" name="tipoConversion">
+                                Binario
+                            </label>
+                            <label class="radio">
+                                <input v-model="baseSeleccionada" value="8" type="radio" name="tipoConversion">
+                                Octal
+                            </label>
+                            <label class="radio">
+                                <input v-model="baseSeleccionada" value="10" type="radio" name="tipoConversion">
+                                Decimal
+                            </label>
+                            <label class="radio">
+                                <input v-model="baseSeleccionada" value="16" type="radio" name="tipoConversion">
+                                Hexadecimal
+                            </label>
+                        </div>
+                    </div>
+                    <div class="field has-addons">
+                        <div class="control">
+                            <a class="button is-success">
+                                BINARIO
+                            </a>
+                        </div>
+                        <div class="control is-expanded">
+                            <input v-model="binario" readonly class="input" type="text" placeholder="Aquí aparecerá en binario">
+                        </div>
+                        <div class="control">
+                            <a title="Copiar al portapapeles" @click="copiarAlPortapapeles(binario)" class="button is-info">
+                                <i class="fa fa-copy"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="field has-addons">
+
+                        <div class="control">
+                            <a class="button is-success">
+                                OCTAL
+                            </a>
+                        </div>
+                        <div class="control is-expanded">
+                            <input v-model="octal" readonly class="input" type="text" placeholder="Aquí aparecerá en octal">
+                        </div>
+                        <div class="control">
+                            <a @click="copiarAlPortapapeles(octal)" class="button is-info">
+                                <i class="fa fa-copy"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="field has-addons">
+
+                        <div class="control">
+                            <a class="button is-success">
+                                DECIMAL
+                            </a>
+                        </div>
+                        <div class="control is-expanded">
+                            <input v-model="decimal" readonly class="input" type="text" placeholder="Aquí aparecerá en decimal">
+                        </div>
+                        <div class="control">
+                            <a @click="copiarAlPortapapeles(decimal)" class="button is-info">
+                                <i class="fa fa-copy"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="field has-addons">
+
+                        <div class="control">
+                            <a class="button is-success">
+                                HEXADECIMAL
+                            </a>
+                        </div>
+                        <div class="control is-expanded">
+                            <input v-model="hexadecimal" readonly class="input" type="text" placeholder="Aquí aparecerá en hexadecimal">
+                        </div>
+                        <div class="control">
+                            <a @click="copiarAlPortapapeles(hexadecimal)" class="button is-info">
+                                <i class="fa fa-copy"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="content has-text-centered">
+            <p>
+                <strong>Conversor de números online</strong> creado y mantenido por <a target="_blank" href="https://parzibyte.me/blog/sobre-el-autor">Luis
+                    Cabrera Benito aka parzibyte</a>.
+                <br>
+                Si lo deseas, visita el repositorio online
+                <a href="https://github.com/parzibyte/conversor_bases">
+                    <i class="fa fa-github"></i>
+                </a>
+                . También puedes seguirme...
+                <br>
+
+                <a href="https://twitter.com/parzibyte" target="_blank">
+                    <i class="fa fa-twitter"></i>
+                </a>
+                <a href="https://facebook.com/parzibyte.fanpage" target="_blank">
+                    <i class="fa fa-facebook-square"></i>
+                </a>
+                <a href="https://github.com/parzibyte" target="_blank">
+                    <i class="fa fa-github"></i>
+                </a>
+            </p>
+        </div>
+    </footer>
+</body>
+<script src="script.js"></script>
+
+</html>

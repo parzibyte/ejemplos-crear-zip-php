@@ -1,0 +1,6 @@
+2019/05/20 17:46:39.400412 utiles.go:14: Error al servir respuesta para [::1]:58264: sql: Scan error on column index 10, name "cantidad": converting driver.Value type []uint8 ("500.00") to a uint64: invalid syntax
+2019/05/20 17:51:22.090897 utiles.go:14: Error al servir respuesta para [::1]:58410: sql: no rows in result set
+2019/05/20 19:03:53.695431 utiles.go:14: Error al servir respuesta para [::1]:63366: strconv.ParseUint: parsing "\a": invalid syntax
+2019/05/20 19:04:50.037355 utiles.go:14: Error al servir respuesta para [::1]:63421: strconv.ParseUint: parsing "\b": invalid syntax
+2019/05/20 19:05:21.234789 utiles.go:14: Error al servir respuesta para [::1]:63454: strconv.ParseUint: parsing "\t": invalid syntax
+2019/05/20 19:05:44.764982 utiles.go:14: Error al servir respuesta para [::1]:63482: strconv.ParseUint: parsing "\n": invalid syntax
